@@ -4,9 +4,12 @@ public class Main {
     public static void main(String[] args) {
 
         MainThread mainThread = new MainThread("Main");
-        mainThread.start("c");
+        mainThread.start();
         try {
-            mainThread.getMainThread().join();
+
+            for (int i = 0; i < 5; i++) {
+                mainThread.getMainThread().join();
+            }
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
