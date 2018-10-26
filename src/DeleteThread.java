@@ -13,13 +13,12 @@ public class DeleteThread extends Thread {
 
     @Override
     public void run() {
-        System.out.println(this.thrName);
         synchronized (this) {
             try {
                 while (true) {
-                    System.out.println("run delete....");
                     if (mainThread.getAction().equals("d")) {
                         System.out.println("method delete");
+                        mainThread.setAction("");
                     } else {
                         wait(500);
                     }

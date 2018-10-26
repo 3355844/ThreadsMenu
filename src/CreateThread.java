@@ -13,14 +13,14 @@ public class CreateThread implements Runnable {
 
     @Override
     public void run() {
-        System.out.println(this.thrName);
         synchronized (this) {
 
             try {
                 while (true) {
-                    System.out.println("run create.....");
                     if (mainThread.getAction().equals("c")) {
                         System.out.println("method create");
+                        mainThread.setAction("");
+
                     } else {
                         wait(500);
                     }

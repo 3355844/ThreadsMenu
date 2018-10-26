@@ -12,13 +12,12 @@ public class UpdateThread implements Runnable {
 
     @Override
     public void run() {
-        System.out.println(this.thrName);
         synchronized (this) {
             try {
                 while (true) {
-                    System.out.println("run update.....");
                     if (mainThread.getAction().equals("u")) {
                         System.out.println("method update");
+                        mainThread.setAction("");
                     } else {
                         wait(500);
                     }

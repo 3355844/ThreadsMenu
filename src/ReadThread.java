@@ -12,14 +12,12 @@ public class ReadThread implements Runnable {
 
     @Override
     public void run() {
-        System.out.println(this.thrName);
         synchronized (this) {
-
             try {
                 while (true) {
-                    System.out.println("run read.....");
                     if (mainThread.getAction().equals("r")) {
                         System.out.println("method read");
+                        mainThread.setAction("");
                     } else {
                         wait(500);
                     }

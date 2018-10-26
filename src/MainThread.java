@@ -6,6 +6,9 @@ public class MainThread implements Runnable {
     private DeleteThread deleteThread;
     private UpdateThread updateThread;
     private ReadThread readThread;
+    private ConsoleThread consoleThread;
+
+
 
     @Override
     public void run() {
@@ -13,6 +16,7 @@ public class MainThread implements Runnable {
         startThreads();
         try {
             joinThreads();
+
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -21,6 +25,7 @@ public class MainThread implements Runnable {
     }
 
     private void joinThreads() throws InterruptedException {
+        consoleThread.getThrConsole().join();
         createThread.getThrCreate().join();
         deleteThread.getThrDelete().join();
         updateThread.getThrUpdate().join();
@@ -28,6 +33,7 @@ public class MainThread implements Runnable {
     }
 
     private void startThreads() {
+        consoleThread.start();
         createThread.start();
         deleteThread.start();
         updateThread.start();
@@ -35,6 +41,7 @@ public class MainThread implements Runnable {
     }
 
     public void start() {
+        consoleThread = new ConsoleThread(this);
         updateThread = new UpdateThread(this);
         createThread = new CreateThread(this);
         deleteThread = new DeleteThread(this);
