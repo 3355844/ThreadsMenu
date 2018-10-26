@@ -6,10 +6,7 @@ public class Main {
         MainThread mainThread = new MainThread("Main");
         mainThread.start();
         try {
-
-            for (int i = 0; i < 5; i++) {
-                mainThread.getMainThread().join();
-            }
+            mainThread.getMainThread().join();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }

@@ -1,18 +1,18 @@
 public class MainThread implements Runnable {
     private String thrName;
     private Thread mainThread;
-    private String action = "c";
+    private String action = "";
     private CreateThread createThread;
     private DeleteThread deleteThread;
+    private UpdateThread updateThread;
+    private ReadThread readThread;
 
     @Override
     public void run() {
         System.out.println("Main Thread is Started...");
-        createThread.start();
-        deleteThread.start();
+        startThreads();
         try {
-            createThread.getThrCreate().join();
-            deleteThread.getThrDelete().join();
+            joinThreads();
         } catch (InterruptedException e) {
             e.printStackTrace();
         }
@@ -20,10 +20,25 @@ public class MainThread implements Runnable {
 
     }
 
-    public void start(){
+    private void joinThreads() throws InterruptedException {
+        createThread.getThrCreate().join();
+        deleteThread.getThrDelete().join();
+        updateThread.getThrUpdate().join();
+        readThread.getThrRead().join();
+    }
 
+    private void startThreads() {
+        createThread.start();
+        deleteThread.start();
+        updateThread.start();
+        readThread.start();
+    }
+
+    public void start() {
+        updateThread = new UpdateThread(this);
         createThread = new CreateThread(this);
         deleteThread = new DeleteThread(this);
+        readThread = new ReadThread(this);
         mainThread = new Thread(this, thrName);
         mainThread.start();
     }
