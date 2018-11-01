@@ -4,12 +4,30 @@ public class ConsoleThread implements Runnable {
     MainThread mainThread;
     Thread thrConsole;
     String thrName = "Console";
+    String consoleValue;
+    String[] commands = {"c", "r", "u", "d", "q"};
 
-    public void start(){
+    String menu = "MENU program: \n" +
+            "c - create \n" +
+            "r - reade \n" +
+            "u - update \n" +
+            "d - delete \n" +
+            "q - quit \n" +
+            "enter command:";
+
+
+    public void start() {
         if (thrConsole == null) {
             thrConsole = new Thread(this, thrName);
             thrConsole.start();
         }
+    }
+
+    private boolean commandChecker(String command) {
+        for (String s : commands) {
+            if (command.equals(s)) return true;
+        }
+        return false;
     }
 
 
@@ -18,9 +36,13 @@ public class ConsoleThread implements Runnable {
         synchronized (this) {
             try {
                 while (true) {
+                    if(mainThread.getAction().equals("q")) break;
                     if (mainThread.getAction().equals("")) {
-                        System.out.println("enter value:");
-                        mainThread.setAction(readConsoleValue());
+                        System.out.println(menu);
+                        consoleValue = readConsoleValue();
+                        if (commandChecker(consoleValue)) {
+                            mainThread.setAction(consoleValue);
+                        } else System.out.println("Wrong command");
                     } else {
                         wait(500);
                     }

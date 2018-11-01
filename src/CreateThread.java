@@ -17,10 +17,10 @@ public class CreateThread implements Runnable {
 
             try {
                 while (true) {
+                    if(mainThread.getAction().equals("q")) break;
                     if (mainThread.getAction().equals("c")) {
                         System.out.println("method create");
                         mainThread.setAction("");
-
                     } else {
                         wait(500);
                     }

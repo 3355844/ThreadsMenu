@@ -15,6 +15,7 @@ public class ReadThread implements Runnable {
         synchronized (this) {
             try {
                 while (true) {
+                    if(mainThread.getAction().equals("q")) break;
                     if (mainThread.getAction().equals("r")) {
                         System.out.println("method read");
                         mainThread.setAction("");

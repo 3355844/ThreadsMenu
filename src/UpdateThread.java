@@ -15,6 +15,7 @@ public class UpdateThread implements Runnable {
         synchronized (this) {
             try {
                 while (true) {
+                    if(mainThread.getAction().equals("q")) break;
                     if (mainThread.getAction().equals("u")) {
                         System.out.println("method update");
                         mainThread.setAction("");

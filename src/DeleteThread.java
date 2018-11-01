@@ -16,6 +16,7 @@ public class DeleteThread extends Thread {
         synchronized (this) {
             try {
                 while (true) {
+                    if(mainThread.getAction().equals("q")) break;
                     if (mainThread.getAction().equals("d")) {
                         System.out.println("method delete");
                         mainThread.setAction("");
